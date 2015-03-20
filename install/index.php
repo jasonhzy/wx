@@ -205,7 +205,7 @@ $method = isset($allow_method[$step]) ? $allow_method[$step] : '';
 //检测标识文件是否存在，如果存在，那么停止安装
 if (file_exists('../data/install.lock')){
 	@header("Content-type: text/html; charset=UTF-8");
-	echo "系统已经安装过了，如果要重新安装，那么请删除PigData目录下的install.lock文件";
+	echo "系统已经安装过了，如果要重新安装，那么请删除data目录下的install.lock文件";
 	exit;
 }
 
