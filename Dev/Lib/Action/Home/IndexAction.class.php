@@ -14,4 +14,8 @@ class IndexAction extends BaseAction{
 	function  login() {
 		$this->display();
 	}
+
+	function  register() {
+		$this->display();
+	}
 }

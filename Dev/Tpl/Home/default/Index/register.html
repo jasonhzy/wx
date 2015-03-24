@@ -1,0 +1,126 @@
+
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>用户注册-微信平台</title>
+	<meta name="keywords" content="微信营销">
+	<meta name="description" content="微信营销">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	<link rel="shortcut icon" href="./favicon.ico">
+	<link rel="stylesheet" href="{wx::RES}/css/style.css">
+</head>
+<body>
+	<div class="g logoBox" style="width:1200px;">
+		<div class="logo l">
+			<a href="http://www.weixinguanjia.com/"><img src="{wx::RES}/images/logo_big.png" alt="微信"  width="250" height="84"></a>
+		</div>
+		<div class="spr r"></div>
+	</div>
+	<hr style="color:#f8f8f8; margin: 15px;">
+	<h1 class="g">快速注册</h1>
+	<div class="regBox g">
+		<form id="regform" class="form-horizontal" action="" method="post">
+			<ul>
+				<li class="rline rline1">
+					<div class="lab l">用户名</div>
+					<div class="inputBox l">
+						<div>
+							<input type="text" name="username" id="username" />
+							<span class="red">*</span>
+						</div>
+					</div>
+				</li>
+				<li class="rline rline2">
+					<div class="lab l">密码</div>
+					<div class="inputBox l">
+						<div>
+							<input type="password" name="pwd" id="pwd" />
+							<span class="red">*</span>
+						</div>
+					</div>
+				</li>
+				<li class="rline rline3">
+					<div class="lab l">确认密码</div>
+					<div class="inputBox l">
+						<div>
+							<input type="password"  name="confirm_pwd" id="confirm_pwd" />	
+							<span class="red">*</span>
+						</div>
+					</div>
+				</li>
+				<li class="rline rline5">
+					<div class="lab l">联系人</div>
+					<div class="inputBox l">
+						<div>
+							<input type="text" name="contact"/>
+							<span class="red">*</span>
+						</div>
+					</div>
+				</li>
+				<li class="rline rline7">
+					<div class="lab l">邮箱</div>
+					<div class="inputBox l">
+						<div>
+							<input type="email" />
+							<span class="red">*</span>
+							<!--/^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/-->
+						</div>
+					</div>
+				</li>
+				<li class="rline rline6">
+					<div class="lab l">手机</div>
+					<div class="inputBox l">
+						<div>
+							<input type="text" name="phone"/>
+								<span class="red">*</span>
+							</div><!-- /^0{0,1}(13[0-9]|14[0-9]|15[0-9]|18[0-9])[0-9]{8}$/ -->
+					</div>
+				</li>
+				<li class="rline rline4">
+					<div class="lab l">所在区域</div>
+					<div class="inputBox l">
+						<div>
+							<select name="province">
+							</select>
+							<select name="city">
+							</select>
+							<select name="area">
+							</select>						
+						</div>
+					</div>
+				</li>
+				<li class="rline rline8">
+					<div class="lab l">验证码</div>
+					<div class="inputBox l">
+						<div>
+							<input type="text" placeholder="点击输入验证码" name="vercode" class="base_input code"/>
+							<span class="red">*</span>
+						</div>
+					</div>
+				</li>
+				<li class="rline rline9">
+					<button type="button" class="btn-register" onclick="registerUser()"></button>
+				</li>
+			</ul>
+		</form>
+		<div class="sidBox">
+			<h3>已有帐号？</h3>
+			<div>
+				<a href="/index.php?g=Home&m=Index&a=login" class="registerNew" title="登录" hidefocus="true" onfocus="this.blur();"><img src="{wx::RES}/images/gologin.png" alt="登录"></a>
+			</div>
+		</div>
+	</div>
+	<div class="g cpr hc rcpr">
+			Copyright©2015 微信 All Rights Reserved.
+		</div>
+	<script type="text/javascript" src="{wx::STATICS}/js/psca.js"></script>
+	<script type="text/javascript">
+		new PCAS("province","city","area")
+
+		function checkname(str){
+			  return str.match(/^([\u4e00-\u9fa5]|[\ufe30-\uffa0]|[A-Za-z0-9_])*$/);
+		}
+	</script>
+</body>
+</html>
