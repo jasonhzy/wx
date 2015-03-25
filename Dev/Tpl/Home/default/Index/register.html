@@ -3,12 +3,17 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>用户注册-微信平台</title>
+	<title>微信-用户注册</title>
 	<meta name="keywords" content="微信营销">
 	<meta name="description" content="微信营销">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 	<link rel="shortcut icon" href="./favicon.ico">
 	<link rel="stylesheet" href="{wx::RES}/css/style.css">
+	<style type="text/css">
+		label.error{
+			color : red;
+		}
+	</style>
 </head>
 <body>
 	<div class="g logoBox" style="width:1200px;">
@@ -62,7 +67,7 @@
 					<div class="lab l">邮箱</div>
 					<div class="inputBox l">
 						<div>
-							<input type="email" />
+							<input type="text" name="emailmsg"/>
 							<span class="red">*</span>
 							<!--/^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/-->
 						</div>
@@ -74,7 +79,7 @@
 						<div>
 							<input type="text" name="phone"/>
 								<span class="red">*</span>
-							</div><!-- /^0{0,1}(13[0-9]|14[0-9]|15[0-9]|18[0-9])[0-9]{8}$/ -->
+							</div>
 					</div>
 				</li>
 				<li class="rline rline4">
@@ -90,24 +95,25 @@
 						</div>
 					</div>
 				</li>
-				<li class="rline rline8">
+				<li class="rline rline4">
 					<div class="lab l">验证码</div>
 					<div class="inputBox l">
 						<div>
-							<input type="text" placeholder="点击输入验证码" name="vercode" class="base_input code"/>
+							<input type="text" placeholder="输入验证码" name="vercode" />
+							<img src="./index.php/Index/verify" id="verify_code" title="看不清，点击换一张"  style="cursor:pointer;">
 							<span class="red">*</span>
 						</div>
 					</div>
 				</li>
 				<li class="rline rline9">
-					<button type="button" class="btn-register" onclick="registerUser()"></button>
+					<button type="submit" class="btn-register" ></button>
 				</li>
 			</ul>
 		</form>
 		<div class="sidBox">
 			<h3>已有帐号？</h3>
 			<div>
-				<a href="/index.php?g=Home&m=Index&a=login" class="registerNew" title="登录" hidefocus="true" onfocus="this.blur();"><img src="{wx::RES}/images/gologin.png" alt="登录"></a>
+				<a href="./index.php?g=Home&m=Index&a=login" class="registerNew" title="登录" ><img src="{wx::RES}/images/gologin.png" alt="登录"></a>
 			</div>
 		</div>
 	</div>
@@ -115,8 +121,95 @@
 			Copyright©2015 微信 All Rights Reserved.
 		</div>
 	<script type="text/javascript" src="{wx::STATICS}/js/psca.js"></script>
+	<script type="text/javascript" src="{wx::STATICS}/js/jquery-1.4.2.min.js"></script>
+	<script type="text/javascript" src="{wx::STATICS}/js/jquery.validate.min.js"></script>
 	<script type="text/javascript">
-		new PCAS("province","city","area")
+		new PCAS("province","city","area");
+		$('#verify_code').click(function(){
+			$(this).attr("src", './index.php/Index/verify?v=' + Math.random());
+		});
+		
+		jQuery.extend(jQuery.validator.messages, {
+			required : "必填项",
+			rangelength : jQuery.validator.format("请输入长度 {0}~{1} 之间的字符串"),
+			email : '请输入正确的邮箱' 
+		});
+		
+		jQuery.validator.addMethod("isPhone", function(value, element) { 
+			var phone = /^(13|14|15|18])[0-9]{9}$/;
+			return this.optional(element) || (phone.test(value)); 
+		}, "请正确手机号码"); 
+		
+		$("#regform").validate({
+	        rules: {
+	        	username : {
+					required : true
+				},
+				pwd : {
+					required : true,
+					rangelength : [6, 16]
+				},
+				confirm_pwd : {
+					required : true,
+					rangelength : [6, 16],
+					equalTo: "#pwd"
+				},
+				contact : {
+					required : true
+				},
+				phone : {
+					required : true,
+					isPhone : true
+				},
+				emailmsg : {
+					required : true,
+					email : true
+				},
+				vercode : {
+					required : true,
+					remote: {
+						url: "./index.php?g=Home&m=Index&a=verify_code",     //后台处理程序
+					    type: "post",               //数据发送方式
+					    dataType: "json",           //接受数据格式   
+					    data: {                     //要传递的数据
+					    	vercode: function() {
+					            return $("input[name='vercode']").val();
+					        }
+					    }
+					}
+				}
+	        },
+	        messages :{
+	        	phone : {
+					isPhone : '请输入正确的手机号码'
+				},	
+				emailmsg : {
+					email : "请输入正确的邮箱"
+				},
+				confirm_pwd :{
+					 required : "请输入确认密码",
+					 equalTo: "两次输入密码不一致"
+				},
+				vercode : {
+					remote: "验证码输入有误"
+				}
+		    },
+			errorPlacement: function (error, element) {
+				error.insertAfter(element); 
+		    	/*switch (true) {
+			        case element.attr("name") === '':
+			            error.insertAfter($("#"+element.attr("name")+"_label"));
+			            break;
+			        default:
+			        	error.insertAfter(element); 
+			        	break;
+			    }*/
+			},
+			submitHandler : function(form){ 
+				$("#regform").submit();
+			}
+	    });
+		
 
 		function checkname(str){
 			  return str.match(/^([\u4e00-\u9fa5]|[\ufe30-\uffa0]|[A-Za-z0-9_])*$/);
