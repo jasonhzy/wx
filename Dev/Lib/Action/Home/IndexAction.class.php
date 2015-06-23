@@ -8,7 +8,7 @@
 class IndexAction extends BaseAction{
 	
 	public function index(){
-		header('Location: ./index.php?g=Home&m=Index&a=login');
+		$this->display('login');
 	}
 	
 	function  login() {
