@@ -4,7 +4,7 @@ return array (
   'site_title' => '微信营销-微信公众服务平台',
   'site_logo' => '',
   'site_url' => 'http://wx.cn/',
-  'site_my' => 'jasonhzy',
+  'site_my' => 'wx.cn',
   'server_key' => 'bc9ed510a91c14331cf2f6ce4169807b',
   'server_topdomain' => 'http://wx.cn',
   'connectout' => '用户已到期，请联系管理员或客服充值',

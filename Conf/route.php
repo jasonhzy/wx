@@ -9,6 +9,6 @@ return array(
 	'URL_ROUTER_ON'   		=> true, 			//开启路由
 	'URL_HTML_SUFFIX'		=>'shtml',			//伪静态后缀
 	'URL_ROUTE_RULES' 		=> array( 			//定义路由规则
-		'api/:token'        => 'Home/Weixin/index',
+		'api/:token'        => 'Weixin/Weixin/index',
 	)
 );
